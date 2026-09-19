@@ -5,7 +5,7 @@ public class Producto {
 	private String Nombre;
 	private float Precio;
 	private int Stock;
-	private Categorias categoria;
+	private int IdCategoria;
 	
 	public String getCodigo() {
 		return Codigo;
@@ -31,17 +31,17 @@ public class Producto {
 	public void setStock(int stock) {
 		Stock = stock;
 	}
-	public Categorias getCategoria() {
-		return categoria;
+	public int getIdCategoria() {
+		return IdCategoria;
 	}
-	public void setCategoria(Categorias categoria) {
-		this.categoria = categoria;
+	public void setIdCategoria(int IdCategoria) {
+		this.IdCategoria = IdCategoria;
 	}
 	
 	@Override
 	public String toString() {
 		return "Producto [Codigo=" + Codigo + ", Nombre=" + Nombre + ", Precio=" + Precio + ", Stock=" + Stock
-				+ ", categoria=" + categoria + "]";
+				+ ", Id Categoria=" + IdCategoria + "]";
 	}
 	
 	

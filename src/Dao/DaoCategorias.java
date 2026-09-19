@@ -18,25 +18,32 @@ public class DaoCategorias {
 
     public DaoCategorias() {
     }
+    
+    private Connection obtenerConexion() throws SQLException {
+    	return DriverManager.getConnection(host + dbName, user, pass);
+    }
 
     public int agregarCategoria(Categorias categoria) {
-        Connection cn = null;
+    	Connection cn = null; 
         int filas = 0;
 
         try {
-            cn = DriverManager.getConnection(host + dbName, user, pass);
+            cn = obtenerConexion(); 
             String query = "INSERT INTO Categorias (Nombre) VALUES (?)";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, categoria.getNombre());
             filas = pst.executeUpdate();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        } 
+        finally {
             try {
                 if (cn != null) {
                     cn.close();
                 }
-            } catch (SQLException e) {
+            } 
+            catch (SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -49,19 +56,22 @@ public class DaoCategorias {
         int filas = 0;
 
         try {
-            cn = DriverManager.getConnection(host + dbName, user, pass);
+            cn = obtenerConexion(); 
             String query = "DELETE FROM Categorias WHERE IdCategoria = ?";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setInt(1, idCategoria);
             filas = pst.executeUpdate();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        } 
+        finally {
             try {
                 if (cn != null) {
                     cn.close();
                 }
-            } catch (SQLException e) {
+            } 
+            catch (SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -71,29 +81,30 @@ public class DaoCategorias {
     public int modificarCategoria(Categorias categoria) {
 
         Connection cn = null;
-
         int filas = 0;
 
         try {
-
-            cn = DriverManager.getConnection(host + dbName, user, pass);
+            cn = obtenerConexion();
 
             String query = "UPDATE Categorias SET Nombre = ? WHERE IdCategoria = ?";
-
             PreparedStatement pst = cn.prepareStatement(query);
 
             pst.setString(1, categoria.getNombre());
             pst.setInt(2, categoria.getIdCategoria());
 
             filas = pst.executeUpdate();
-        } catch (Exception e) {
+            
+        } 
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        } 
+        finally {
             try {
                 if (cn != null) {
                     cn.close();
                 }
-            } catch (SQLException e) {
+            } 
+            catch (SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -108,7 +119,7 @@ public class DaoCategorias {
 
         try {
 
-            cn = DriverManager.getConnection(host + dbName, user, pass);
+            cn = obtenerConexion(); 
 
             String query = "SELECT IdCategoria, Nombre FROM Categorias";
 
@@ -124,14 +135,17 @@ public class DaoCategorias {
                 categoria.setNombre(rs.getString("Nombre"));
                 lista.add(categoria);
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        } 
+        finally {
             try {
                 if (cn != null) {
                     cn.close();
                 }
-            } catch (SQLException e) {
+            } 
+            catch (SQLException e) {
                 e.printStackTrace();
             }
         }
