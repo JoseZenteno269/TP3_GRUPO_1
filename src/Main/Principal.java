@@ -33,6 +33,17 @@ public class Principal {
 			}
 		}
 		
+        int filasBaja = daoCat.eliminarCategoria(3);
+
+        if(filasBaja == 1)
+        {
+            System.out.println("Categoria eliminada con exito");
+        }
+        else
+        {
+            System.out.println("Error al eliminar categoria");
+        }
+		
 	}
 
 }
