@@ -1,8 +1,6 @@
 package Dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,61 +11,24 @@ import Entidades.Producto;
 
 public class DaoProductos {
 	
-	private String host = "jdbc:mysql://localhost:3306/";
-    private String user = "root";
-    private String pass = "root";
-    private String dbName = "bdInventario?useUnicode=yes&characterEncoding=UTF-8&useSSL=false";
+	Datos datos = new Datos(); 
 
 	public DaoProductos() {	
 	}
 	
-    private Connection obtenerConexion() throws SQLException {
-    	return DriverManager.getConnection(host + dbName, user, pass);
-    }
-    
-    private int ejecutarProcedimientoAlmacenado(String consulta, Object[] parametros) {
-    	Connection cn = null; 
-    	int filas = 0; 
-    	try {
-    		cn = obtenerConexion(); 
-    		CallableStatement cs = cn.prepareCall(consulta); 
-    		
-    		for(int i = 0; i < parametros.length; i++) {
-    			cs.setObject(i + 1, parametros[i]);
-    		}
-    		
-    		filas = cs.executeUpdate(); 
-    	}
-    	catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	finally {
-    		try {
-    			if(cn != null) {
-    				cn.close();
-    			}
-    		}
-    		catch (SQLException e) {
-				e.printStackTrace();
-			}
-    	}
-    	
-    	return filas; 
-    }
-    
     
 	public Boolean agregarProducto(Producto producto) {
 		Object[] parametros = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), producto.getIdCategoria()}; 
-		return ejecutarProcedimientoAlmacenado("{CALL sp_AgregarProducto(?, ?, ?, ?, ?)}", parametros) != 0; 
+		return datos.ejecutarProcedimientoAlmacenado("{CALL sp_AgregarProducto(?, ?, ?, ?, ?)}", parametros) != 0; 
 	}
 	
 	// Eliminacion
-	public int eliminarProducto(String codigo) {
+	public Boolean eliminarProducto(String codigo) {
 
     	Connection cn = null;
     	int filas = 0;
     	try {
-        	cn = obtenerConexion(); 
+        	cn = datos.obtenerConexion(); 
         	String query = "DELETE FROM Productos WHERE Codigo = ?";
         	PreparedStatement pst = cn.prepareStatement(query);
         	pst.setString(1, codigo);
@@ -86,18 +47,18 @@ public class DaoProductos {
             	e.printStackTrace();
         	}
     	}
-    	return filas;
+    	return filas != 0;
 	}
 	
 	//Modificacion
-	public int modificarProducto(Producto producto) {
+	public Boolean modificarProducto(Producto producto) {
 		String consulta = "UPDATE Productos SET Nombre = ?, Precio = ?, Stock = ?, IdCategoria = ? WHERE Codigo = ?"; 
 		
 		Connection cn = null; 
 		int filas = 0; 
 		
 		try {
-			cn = obtenerConexion(); 
+			cn = datos.obtenerConexion(); 
 			PreparedStatement pst = cn.prepareStatement(consulta); 
 			
 			pst.setString(1, producto.getNombre());
@@ -121,7 +82,7 @@ public class DaoProductos {
 			}
 		}
 		
-		return filas; 
+		return filas != 0; 
 	}
 	
 	
@@ -132,7 +93,7 @@ public class DaoProductos {
 		Connection cn = null;  
 		ArrayList<Producto> aProductos = new ArrayList<Producto>(); 
 		try {
-			cn = obtenerConexion(); 
+			cn = datos.obtenerConexion(); 
 			Statement st = cn.createStatement(); 
 			ResultSet rst = st.executeQuery(consulta);  
 			

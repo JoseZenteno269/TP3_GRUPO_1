@@ -1,7 +1,6 @@
 package Dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,25 +9,15 @@ import java.util.ArrayList;
 import Entidades.Categorias;
 
 public class DaoCategorias {
+	
+	Datos datos = new Datos(); 
 
-    private String host = "jdbc:mysql://localhost:3306/";
-    private String user = "root";
-    private String pass = "root";
-    private String dbName = "bdInventario?useUnicode=yes&characterEncoding=UTF-8&useSSL=false";
-
-    public DaoCategorias() {
-    }
-    
-    private Connection obtenerConexion() throws SQLException {
-    	return DriverManager.getConnection(host + dbName, user, pass);
-    }
-
-    public int agregarCategoria(Categorias categoria) {
+    public Boolean agregarCategoria(Categorias categoria) {
     	Connection cn = null; 
         int filas = 0;
 
         try {
-            cn = obtenerConexion(); 
+            cn = datos.obtenerConexion(); 
             String query = "INSERT INTO Categorias (Nombre) VALUES (?)";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setString(1, categoria.getNombre());
@@ -48,15 +37,15 @@ public class DaoCategorias {
             }
         }
 
-        return filas;
+        return filas != 0;
     }
 
-    public int eliminarCategoria(int idCategoria) {
+    public Boolean eliminarCategoria(int idCategoria) {
         Connection cn = null;
         int filas = 0;
 
         try {
-            cn = obtenerConexion(); 
+            cn = datos.obtenerConexion(); 
             String query = "DELETE FROM Categorias WHERE IdCategoria = ?";
             PreparedStatement pst = cn.prepareStatement(query);
             pst.setInt(1, idCategoria);
@@ -75,16 +64,16 @@ public class DaoCategorias {
                 e.printStackTrace();
             }
         }
-        return filas;
+        return filas != 0;
     }
     
-    public int modificarCategoria(Categorias categoria) {
+    public Boolean modificarCategoria(Categorias categoria) {
 
         Connection cn = null;
         int filas = 0;
 
         try {
-            cn = obtenerConexion();
+            cn = datos.obtenerConexion();
 
             String query = "UPDATE Categorias SET Nombre = ? WHERE IdCategoria = ?";
             PreparedStatement pst = cn.prepareStatement(query);
@@ -108,7 +97,7 @@ public class DaoCategorias {
                 e.printStackTrace();
             }
         }
-        return filas;
+        return filas != 0;
     }
     
     public ArrayList<Categorias> listarCategorias() {
@@ -119,7 +108,7 @@ public class DaoCategorias {
 
         try {
 
-            cn = obtenerConexion(); 
+            cn = datos.obtenerConexion(); 
 
             String query = "SELECT IdCategoria, Nombre FROM Categorias";
 

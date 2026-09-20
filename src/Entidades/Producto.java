@@ -1,11 +1,24 @@
 package Entidades;
 
+
 public class Producto {
 	private String Codigo;
 	private String Nombre;
 	private float Precio;
 	private int Stock;
 	private int IdCategoria;
+	
+	public Producto() {
+		
+	}
+	
+	public Producto(String codigo, String nombre, float precio, int stock, int idcategoria) {
+		this.Codigo = codigo;
+		this.Nombre = nombre;
+		this.Precio = precio; 
+		this.Stock = stock; 
+		this.IdCategoria = idcategoria; 
+	}
 	
 	public String getCodigo() {
 		return Codigo;
