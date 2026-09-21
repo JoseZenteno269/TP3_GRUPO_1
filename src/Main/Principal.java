@@ -50,6 +50,21 @@ public class Principal {
 			}
 		}
 		
+		Categorias categoriaModificar = new Categorias();
+
+		categoriaModificar.setIdCategoria(3);
+		categoriaModificar.setNombre("Tecnologia");
+
+		if(daoCat.modificarCategoria(categoriaModificar))
+		{
+		    System.out.println("Categoria modificada con exito");
+		}
+		else
+		{
+		    System.out.println("Error al modificar categoria");
+		}
+
+		
 
         if(daoCat.eliminarCategoria(5))
         {
