@@ -9,7 +9,7 @@ public class Principal {
 
 	public static void main(String[] args) {
 		DaoCategorias daoCat = new DaoCategorias();		
-		DaoProductos daoProductos = new DaoProductos(); 
+		DaoProductos daoProd = new DaoProductos(); 
 		
 		Categorias[] categorias = 
 
@@ -37,7 +37,7 @@ public class Principal {
 			    new Producto("PROD-009", "Agua Mineral", 1200, 50, 5)
 			}; 
 		
-		
+		/// Dar de alta
 		for(Categorias cate : categorias)
 		{
 			if(daoCat.agregarCategoria(cate))
@@ -49,6 +49,8 @@ public class Principal {
 				System.out.println("Error al agregar categoria");
 			}
 		}
+		
+		///Modificar
 		
 		Categorias categoriaModificar = new Categorias();
 
@@ -63,9 +65,27 @@ public class Principal {
 		{
 		    System.out.println("Error al modificar categoria");
 		}
+		
+		Producto modificarProducto = new Producto();
+
+		modificarProducto.setCodigo("PROD-010");
+		modificarProducto.setNombre("Lavaropa");
+		modificarProducto.setPrecio(45000);
+		modificarProducto.setStock(100);
+		modificarProducto.setIdCategoria(3);
+
+		if(daoProd.modificarProducto(modificarProducto))
+		{
+		    System.out.println("Producto modificado con exito");
+		}
+		else
+		{
+		    System.out.println("Error al modificar el Producto");
+		}
 
 		
-
+		///Dar de baja
+		
         if(daoCat.eliminarCategoria(5))
         {
             System.out.println("Categoria eliminada con exito");
@@ -77,7 +97,7 @@ public class Principal {
         
 		
 		for (Producto producto : productos) {
-			if(daoProductos.agregarProducto(producto)) {
+			if(daoProd.agregarProducto(producto)) {
 				System.out.println("Productos agregados con exito");
 			}
 			else {
