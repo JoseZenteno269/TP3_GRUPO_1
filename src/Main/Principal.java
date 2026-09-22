@@ -104,6 +104,17 @@ public class Principal {
 				System.out.println("Error al cargar los productos");
 			}
 		}
+
+		/// Listados
+		System.out.println("\nListado de categorias:");
+		for (Categorias categoria : daoCat.listarCategorias()) {
+			System.out.println(categoria);
+		}
+
+		System.out.println("\nListado de productos:");
+		for (Producto producto : daoProd.tablaProductos()) {
+			System.out.println(producto);
+		}
 		
 	}
 
