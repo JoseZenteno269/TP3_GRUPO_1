@@ -11,7 +11,8 @@ import Entidades.Categorias;
 public class DaoCategorias {
 	
 	Datos datos = new Datos(); 
-
+	
+	// Agregar
     public Boolean agregarCategoria(Categorias categoria) {
     	Connection cn = null; 
         int filas = 0;
@@ -40,6 +41,7 @@ public class DaoCategorias {
         return filas != 0;
     }
 
+    // Eliminacion 
     public Boolean eliminarCategoria(int idCategoria) {
         Connection cn = null;
         int filas = 0;
@@ -67,6 +69,7 @@ public class DaoCategorias {
         return filas != 0;
     }
     
+    // modificacion 
     public Boolean modificarCategoria(Categorias categoria) {
 
         Connection cn = null;
@@ -100,6 +103,7 @@ public class DaoCategorias {
         return filas != 0;
     }
     
+    // listado 
     public ArrayList<Categorias> listarCategorias() {
 
         Connection cn = null;

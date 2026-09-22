@@ -53,8 +53,7 @@ public class Producto {
 	
 	@Override
 	public String toString() {
-		return "Producto [Codigo=" + Codigo + ", Nombre=" + Nombre + ", Precio=" + Precio + ", Stock=" + Stock
-				+ ", Id Categoria=" + IdCategoria + "]";
+		return String.format("Codigo: %s - Nombre: %s - Precio: %f - Stock: %d - IdCategoria: %d", Codigo, Nombre, Precio, Stock, IdCategoria); 
 	}
 	
 	

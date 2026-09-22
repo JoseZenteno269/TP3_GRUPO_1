@@ -16,7 +16,7 @@ public class DaoProductos {
 	public DaoProductos() {	
 	}
 	
-    
+    // Agregar
 	public Boolean agregarProducto(Producto producto) {
 		Object[] parametros = {producto.getCodigo(), producto.getNombre(), producto.getPrecio(), producto.getStock(), producto.getIdCategoria()}; 
 		return datos.ejecutarProcedimientoAlmacenado("{CALL sp_AgregarProducto(?, ?, ?, ?, ?)}", parametros) != 0; 
@@ -64,7 +64,8 @@ public class DaoProductos {
 			pst.setString(1, producto.getNombre());
 			pst.setFloat(2, producto.getPrecio());
 			pst.setInt(3, producto.getStock());
-			pst.setInt(4, producto.getIdCategoria());
+			pst.setInt(4, producto.getIdCategoria()); 
+			pst.setString(5, producto.getCodigo());
 			
 			filas = pst.executeUpdate(); 
 		}

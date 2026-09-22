@@ -7,7 +7,9 @@ public class Categorias {
 	
 	//Constructores
 	
-	public Categorias() {}
+	public Categorias() {
+		
+	}
 
 	public Categorias(String nombre) 
 	{
@@ -36,7 +38,7 @@ public class Categorias {
 	// ToString()
 	@Override
 	public String toString() {
-		return "Categorias [idCategoria=" + idCategoria + ", Nombre=" + Nombre + "]";
+		return String.format("IdCategoria: %d - Nombre: %s", idCategoria, Nombre); 
 	}
 	
 	

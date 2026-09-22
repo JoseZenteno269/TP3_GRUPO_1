@@ -8,8 +8,8 @@ import Entidades.Producto;
 public class Principal {
 
 	public static void main(String[] args) {
-		DaoCategorias daoCat = new DaoCategorias();		
-		DaoProductos daoProd = new DaoProductos(); 
+		DaoCategorias daoCategoria = new DaoCategorias();		
+		DaoProductos daoProducto = new DaoProductos(); 
 		
 		Categorias[] categorias = 
 
@@ -18,7 +18,8 @@ public class Principal {
 					new Categorias("Limpieza"),
 					new Categorias("Electrodomesticos"),
 					new Categorias("Indumentaria"),
-					new Categorias("Bebidas")
+					new Categorias("Bebidas"),
+					new Categorias("Alimentos")
 					
 			};
 		
@@ -37,10 +38,12 @@ public class Principal {
 			    new Producto("PROD-009", "Agua Mineral", 1200, 50, 5)
 			}; 
 		
-		/// Dar de alta
+		
+		/// Dar alta Categorias y Productos
+		
 		for(Categorias cate : categorias)
 		{
-			if(daoCat.agregarCategoria(cate))
+			if(daoCategoria.agregarCategoria(cate))
 			{
 				System.out.println("Categoria agregada con exito");
 			}
@@ -50,14 +53,46 @@ public class Principal {
 			}
 		}
 		
-		///Modificar
+		
+		
+		for (Producto producto : productos) {
+			if(daoProducto.agregarProducto(producto)) {
+				System.out.println("Productos agregados con exito");
+			}
+			else {
+				System.out.println("Error al cargar los productos");
+			}
+		}
+		
+		
+		/// Dar baja Categorias y Productos 
+		
+		if(daoProducto.eliminarProducto("PROD-003")) {
+			System.out.println("Producto eliminado correctamente");
+		}
+		else {
+			System.out.println("Error al eliminar un producto");
+		}
+		
+		
+		if(daoCategoria.eliminarCategoria(6))
+		{
+			System.out.println("Categoria eliminada con exito");
+		}
+		else
+		{
+			System.out.println("Error al eliminar categoria");
+		}
+		
+		
+		/// Modificar Categorias y Productos
 		
 		Categorias categoriaModificar = new Categorias();
 
 		categoriaModificar.setIdCategoria(3);
 		categoriaModificar.setNombre("Tecnologia");
 
-		if(daoCat.modificarCategoria(categoriaModificar))
+		if(daoCategoria.modificarCategoria(categoriaModificar))
 		{
 		    System.out.println("Categoria modificada con exito");
 		}
@@ -68,13 +103,13 @@ public class Principal {
 		
 		Producto modificarProducto = new Producto();
 
-		modificarProducto.setCodigo("PROD-010");
+		modificarProducto.setCodigo("PROD-005");
 		modificarProducto.setNombre("Lavaropa");
-		modificarProducto.setPrecio(45000);
-		modificarProducto.setStock(100);
+		modificarProducto.setPrecio(350000);
+		modificarProducto.setStock(30);
 		modificarProducto.setIdCategoria(3);
 
-		if(daoProd.modificarProducto(modificarProducto))
+		if(daoProducto.modificarProducto(modificarProducto))
 		{
 		    System.out.println("Producto modificado con exito");
 		}
@@ -82,37 +117,18 @@ public class Principal {
 		{
 		    System.out.println("Error al modificar el Producto");
 		}
+		
+		
 
+		/// Listar Categorias y Productos
 		
-		///Dar de baja
-		
-        if(daoCat.eliminarCategoria(5))
-        {
-            System.out.println("Categoria eliminada con exito");
-        }
-        else
-        {
-            System.out.println("Error al eliminar categoria");
-        }
-        
-		
-		for (Producto producto : productos) {
-			if(daoProd.agregarProducto(producto)) {
-				System.out.println("Productos agregados con exito");
-			}
-			else {
-				System.out.println("Error al cargar los productos");
-			}
-		}
-
-		/// Listados
 		System.out.println("\nListado de categorias:");
-		for (Categorias categoria : daoCat.listarCategorias()) {
+		for (Categorias categoria : daoCategoria.listarCategorias()) {
 			System.out.println(categoria);
 		}
 
 		System.out.println("\nListado de productos:");
-		for (Producto producto : daoProd.tablaProductos()) {
+		for (Producto producto : daoProducto.tablaProductos()) {
 			System.out.println(producto);
 		}
 		
